@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Arrow functions</title>
+</head>
+<body>
+	<script>
+		// arrow functions (funciones de flecha)
+		// Es una nueva sintaxis para las funciones anonimas.
+		// Su sintaxis es la siguiente:
+
+		// (parametros) => // valor de retorno
+
+
+		var saludar = (nombre,apellido) => "Hola "+ nombre + apellido;
+		console.log(saludar("Luis"," Molina"));
+
+		var suma = (n1,n2) =>  n1 + n2;
+		console.log("suma: "+suma(5,5))
+
+		// Si se tiene un único parámetro no se necesitan parentesis 
+
+		var doble = numero => numero * numero 
+		console.log(doble(8));
+
+		// si solo se va a retornar un valor, éste se escribe despues de la flecha, sin paréntesis ni llaves 
+
+		var producto = (num1,num2) => num1 * num2 
+		console.log(producto(5,5));
+
+		/*
+		Sin embargo, si se va a escribir código adicional se requieren las llaves y se debe escribir explícitamente la palabra return de ser necesario
+		*/
+
+		var mayorDeEdad = (nombre,edad) => {
+			if(edad>17)
+			{
+				return nombre+" Eres mayor de edad";
+			}
+			else
+			{
+				return nombre+" No eres mayor de edad";
+			}
+		}
+		console.log(mayorDeEdad("Luis",20));
+
+
+		// si se necesita devolver un objeto, se usan paréntesis y dentro se escribe el objeto 
+
+		var lenguajes = () => ({lenguajes:[{lenguaje:"Java"},{lenguaje:"Php"},{lenguaje:"React"}]});
+
+		console.log(lenguajes());
+
+		
+
+	</script>
+</body>
+</html>

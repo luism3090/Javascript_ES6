@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promises</title>
+</head>
+<body>
+	<script type="text/javascript">
+			
+// Las promises o promesas, son objetos que nos permiten mejorar la legibilidad de nuestro código y evitar tener que
+// pasar el contenido de las funciones directamente como argumentos a nuestra llamada.
+
+
+var promesa1 = new Promise(function(resolve,reject){
+
+	const flag = 5;
+
+	if(flag == 0){
+
+		resolve("Todo salio bien");
+	}
+	else{
+
+		reject("Algo salio mal");
+	}
+
+})
+
+promesa1.then(function(response){
+	console.log(response)
+},function(error){
+	console.log(error);
+})
+
+
+// otro ejemplo
+
+var promesa2 = new Promise(function(resolve,reject){
+
+	setTimeout(function(){
+		resolve("Todo bien")
+	},1000);
+
+});
+
+promesa2.then(function(response){
+	console.log("\n "+response);
+});
+
+
+// siguiente ejemplo
+
+var promesa3 = new Promise(function(resolve,reject){
+
+	setTimeout(function(){
+		reject(1)
+	},2000)
+
+});
+
+promesa3.then(function(number){
+	console.log("\n "+number);
+})
+.catch(function(error){
+	console.log("\n "+"Error",error);
+})
+
+
+
+
+// otro siguiente ejemplo
+
+var uno = new Promise(function(resolve,reject){
+	setTimeout(function(){
+		resolve(1);
+	},6000)
+})
+
+var dos = new Promise(function(resolve,reject){
+	setTimeout(function(){
+		resolve(2);
+	},2000)
+})
+
+var tres = new Promise(function(resolve,reject){
+	setTimeout(function(){
+		resolve(3);
+	},1000)
+})
+
+Promise.all([uno,dos,tres])
+.then(function(values){
+	console.log(values);
+})
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Callbacks</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+</head>
+<body>
+	<script>
+
+
+// Como la palabra en inglés lo indica un callback es una “llamada de vuelta” y este es un concepto importante
+//  al momento de escribir código. Es simple: llamo a una funcion y le envío por parámetro otra 
+//  función (un callback) esperando que la función que llamé se encargue de ejecutar esa función callback.
+
+// Ejemplo:
+
+		function suma(n1,n2,callback)
+		{
+			var suma = n1+n2;
+			console.log(suma);
+
+			callback();
+		}
+
+		suma(5,5,function()
+		{
+			console.log("Se termino de hacer la suma");
+		})
+
+
+
+console.log(" ");
+//También podemos enviar y recibir parámetros:
+// Ejemplo:
+
+	function numAlCuadrado(n1,callback)
+	{
+		var resultado = n1 * n1;
+
+		console.log("Haciendo operacion");
+		callback(n1,resultado);
+	}
+
+	numAlCuadrado(5,function(n1,resultado)
+	{
+		console.log("El cuadrado de "+n1+" es "+resultado);
+	})
+
+
+
+console.log(" ");
+// Pero callback no significa que voy a llamar cuando termino algo, simplemente puedo tener distintos 
+// callbacks que se van llamando en determinados casos.
+// La idea es disparar eventos en las funciones que llamaron “avisando” que esta sucendiendo, 
+
+// por ejemplo:
+
+ function hacerAlgo(callback1,callback2,callbackTermino)
+ {
+ 	// hacer algo acá
+ 	callback1('paso1');
+
+ 	//sigo.. algo acá
+ 	callback2('paso2');
+
+ 	// sigo y termino
+ 	callbackTermino('Terminé');
+
+ }
+
+ hacerAlgo(
+ function(param){
+
+ 	console.log(param);
+
+ },function(param){
+
+ 	console.log(param);
+
+ },function(param){
+
+	console.log(param);
+
+ })
+
+
+
+
+console.log(" ");
+
+// También lo podemos utilizar declarando funciones nombradas y separando la lógica
+
+function hacerAlgo2(callback1,callback2,callback3)
+{
+
+	// hacer algo acá
+	callback1('paso1');
+
+	// hacer otra cosa acá
+	callback2('paso2');
+
+	// para finalizar
+	callback3('termino');
+
+}
+
+function paso1(quePaso)
+{
+	console.log(quePaso);
+}
+
+function paso2(quePaso)
+{
+	console.log(quePaso);
+}
+
+function ultimoPaso(quePaso)
+{
+	console.log(quePaso);
+}
+
+hacerAlgo2(paso1,paso2,ultimoPaso)
+
+
+
+
+console.log(" ");
+
+// un ejemplo usando ajax
+
+
+	var nombreEmpleado = "";
+
+	function getEmpleados(callback)
+	{
+		$.ajax
+		({
+			url:"empleados.json",
+			async:true,
+			success:function(result,status,xhr)
+			{
+				
+				nombreEmpleado = result.name;
+				//console.log(nombreEmpleado);
+
+				callback(nombreEmpleado);
+
+			}
+			
+		});
+
+
+		
+	}
+	
+	function saludo(nombreEmpleado)
+	{
+		console.log("Hola " +nombreEmpleado);
+	}
+
+
+	getEmpleados(saludo);
+	
+
+
+
+		
+
+
+
+	</script>
+</body>
+</html>
